@@ -1,0 +1,4 @@
+<resources>
+    <string name="notification_added">Notification Added</string>
+    <string name="notification_deleted">Notification Deleted</string>
+</resources>
