@@ -16,11 +16,15 @@ open class LocalNotificationRepository private constructor(
         }
     }
 
-    open fun getAllNotifications(): List<NotificationEntity> {
-        return notificationDao.getAllNotifications()
+    open fun getAll(): List<NotificationEntity> {
+        return notificationDao.getAll()
     }
 
-    open fun addNotification(notification: NotificationEntity) {
-        return notificationDao.addNotification(notification)
+    open fun add(notification: NotificationEntity) {
+        return notificationDao.add(notification)
+    }
+
+    open fun delete(notification: NotificationEntity) {
+        return notificationDao.delete(notification)
     }
 }

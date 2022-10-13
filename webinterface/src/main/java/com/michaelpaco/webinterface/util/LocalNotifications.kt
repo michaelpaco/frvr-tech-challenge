@@ -29,7 +29,7 @@ class LocalNotifications {
         createNotificationsChannel()
     }
 
-    fun registerNotification(notification: NotificationEntity) {
+    fun addNotification(notification: NotificationEntity) {
         val userNotification = NotificationCompat.Builder(MyApplication.application(), LOCAL_NOTIFICATIONS_CHANNEL_ID)
             .setSmallIcon(R.drawable.ic_contest)
             .setContentTitle(notification.title)
@@ -43,7 +43,7 @@ class LocalNotifications {
     }
 
     @RequiresApi(Build.VERSION_CODES.M)
-    fun schedule(notification: NotificationEntity, context: Context) {
+    fun setNotification(notification: NotificationEntity, context: Context, shouldDelete: Boolean = false) {
         val intent = Intent(MyApplication.application(), NotificationScheduler::class.java)
         intent.putExtra("title", notification.title)
         intent.putExtra("message", notification.message)
@@ -58,24 +58,36 @@ class LocalNotifications {
         )
 
         val alarmManager = MyApplication.application().getSystemService(Context.ALARM_SERVICE) as AlarmManager
-        val time = convertToTimeInMillis(notification.displayTime)
+        val timeInMillis = convertToTimeInMillis(notification.displayTime)
 
-        alarmManager.setExactAndAllowWhileIdle(
-            AlarmManager.RTC_WAKEUP,
-            time,
-            pendingIntent
-        )
+        if (shouldDelete) {
+            pendingIntent.cancel()
+            alarmManager.cancel(pendingIntent)
 
-        showAlert(time, notification.title, notification.message, context)
+            showAlert(timeInMillis, notification.title, notification.message, context, shouldDelete)
+        } else {
+            alarmManager.setExactAndAllowWhileIdle(
+                AlarmManager.RTC_WAKEUP,
+                timeInMillis,
+                pendingIntent
+            )
+            showAlert(timeInMillis, notification.title, notification.message, context, shouldDelete)
+        }
     }
 
-    private fun showAlert(time: Long, title: String, message: String, context: Context) {
+    private fun showAlert(time: Long, title: String, message: String, context: Context, isDeleted: Boolean = false) {
         val date = Date(time)
         val dateFormat = getLongDateFormat(MyApplication.application())
         val timeFormat = getTimeFormat(MyApplication.application())
 
+        val alertTitle = if (isDeleted) {
+            context.getString(R.string.notification_deleted)
+        } else {
+            context.getString(R.string.notification_added)
+        }
+
         AlertDialog.Builder(context)
-            .setTitle("notification scheduled")
+            .setTitle(alertTitle)
             .setMessage(
                 "Title: " + title +
                     "\nMessage: " + message +

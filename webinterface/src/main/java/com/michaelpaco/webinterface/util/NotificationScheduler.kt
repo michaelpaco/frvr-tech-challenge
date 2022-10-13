@@ -14,6 +14,6 @@ class NotificationScheduler : BroadcastReceiver() {
             intent.getStringExtra("message")!!
         )
 
-        LocalNotifications().registerNotification(userNotification)
+        LocalNotifications().addNotification(userNotification)
     }
 }
