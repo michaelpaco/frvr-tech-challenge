@@ -1,12 +1,16 @@
 package com.michaelpaco.webinterface.model.interfaces
 
 interface WebApp {
-    fun showMessageFromWebView(message: String)
-    fun registerNotification(
+    fun addNotification(
         displayTime: String,
         id: Int,
         title: String,
         message: String
     )
-    fun getAllNotifications(): String
+    fun closeWebView()
+    fun deleteNotification(notification: String)
+    fun getLifecycleEvents(): String
+    fun getNotifications(): String
+    fun showMessageFromWebView(message: String)
+    fun showToast(message: String, type: String)
 }
