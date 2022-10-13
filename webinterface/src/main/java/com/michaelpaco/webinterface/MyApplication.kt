@@ -2,6 +2,7 @@ package com.michaelpaco.webinterface
 
 import android.app.Application
 import android.content.Context
+import com.michaelpaco.webinterface.util.ActivityLifecycleCallbacks
 
 open class MyApplication : Application() {
 
@@ -17,5 +18,10 @@ open class MyApplication : Application() {
 
     init {
         instance = this
+    }
+
+    override fun onCreate() {
+        super.onCreate()
+        registerActivityLifecycleCallbacks(ActivityLifecycleCallbacks())
     }
 }
