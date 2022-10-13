@@ -215,8 +215,6 @@ function handleRefreshButtonState() {
     "local_notifications__refresh_button"
   );
 
-  console.log("disabling enabling");
-
   if (checkBox.checked == true) {
     refreshButton.disabled = true;
   } else {
