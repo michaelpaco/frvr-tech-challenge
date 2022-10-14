@@ -55,7 +55,8 @@ function showMessageFromWebView() {
 
   appInterface.showMessageFromWebView(message);
 
-  clearInputs(`#${LOCAL_NOTIFICATION_DISPLAY_TIME}`);
+  clearInputs(`#${NATIVE_LOG_MESSAGE_ID}`);
+  showToast("Message sent!")
 }
 
 function getNotifications() {
