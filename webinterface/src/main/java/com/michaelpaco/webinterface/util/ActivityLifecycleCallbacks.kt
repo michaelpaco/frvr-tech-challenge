@@ -2,9 +2,7 @@ package com.michaelpaco.webinterface.util
 
 import android.app.Activity
 import android.app.Application
-import android.os.Build
 import android.os.Bundle
-import androidx.annotation.RequiresApi
 import com.michaelpaco.webinterface.MyApplication
 import com.michaelpaco.webinterface.model.data.LifecycleEventEntity
 import com.michaelpaco.webinterface.model.database.LifecycleEventDatabase
@@ -19,7 +17,6 @@ class ActivityLifecycleCallbacks : Application.ActivityLifecycleCallbacks {
             LifecycleEventDatabase.getDatabase(MyApplication.application()).lifecycleEventDao()
         )
 
-    @RequiresApi(Build.VERSION_CODES.O)
     override fun onActivityCreated(activity: Activity, bundle: Bundle?) {
         addEvent("onActivityCreated")
     }

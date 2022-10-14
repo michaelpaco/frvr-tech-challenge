@@ -1,4 +1,4 @@
-const NATIVE_LOG_MESSAGE_ID = "native_logs__mesage";
+const NATIVE_LOG_MESSAGE_ID = "native_logs__message";
 const LOCAL_NOTIFICATION_DISPLAY_TIME = "local_notifications__display-time";
 const LOCAL_NOTIFICATION_ADD_ID = "local_notifications__add-id";
 const LOCAL_NOTIFICATION_TITLE = "local_notifications__title";

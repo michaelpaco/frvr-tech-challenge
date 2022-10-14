@@ -2,11 +2,9 @@ package com.michaelpaco.webinterface.util
 
 import android.app.Activity
 import android.content.Context
-import android.os.Build
 import android.util.Log
 import android.webkit.JavascriptInterface
 import android.widget.Toast
-import androidx.annotation.RequiresApi
 import com.google.gson.Gson
 import com.michaelpaco.webinterface.model.data.NotificationEntity
 import com.michaelpaco.webinterface.model.database.LifecycleEventDatabase
@@ -37,7 +35,6 @@ class WebAppImpl(private val context: Context) : WebApp {
         Log.d(WEBVIEW_MESSAGE_TAG, message)
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
     @JavascriptInterface
     override fun addNotification(
         displayTime: String,
@@ -61,7 +58,6 @@ class WebAppImpl(private val context: Context) : WebApp {
         return gson.toJson(localNotificationRepository.getAll())
     }
 
-    @RequiresApi(Build.VERSION_CODES.M)
     @JavascriptInterface
     override fun deleteNotification(notification: String) {
         gson.fromJson(notification, NotificationEntity::class.java).apply {

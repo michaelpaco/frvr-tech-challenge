@@ -19,7 +19,6 @@ abstract class LocalNotificationDatabase : RoomDatabase() {
         fun getDatabase(context: Context): LocalNotificationDatabase {
             return instance ?: synchronized(this) {
                 val dbInstance = Room.databaseBuilder(context.applicationContext, LocalNotificationDatabase::class.java, NOTIFICATION_DATABASE_NAME)
-                    .createFromAsset("database/notifications.db")
                     .build()
                 instance = dbInstance
                 dbInstance

@@ -9,7 +9,7 @@ import com.michaelpaco.webinterface.util.Const.LOCAL_BASE_URL
 import com.michaelpaco.webinterface.util.WebAppImpl
 
 abstract class MainActivity : AppCompatActivity() {
-    lateinit var webView: WebView
+    private lateinit var webView: WebView
 
     @SuppressLint("SetJavaScriptEnabled")
     fun startWebView(urlParam: String, id: Int) {

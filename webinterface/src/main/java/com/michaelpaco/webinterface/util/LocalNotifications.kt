@@ -7,23 +7,21 @@ import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
-import android.os.Build
 import android.text.format.DateFormat.getLongDateFormat
 import android.text.format.DateFormat.getTimeFormat
-import androidx.annotation.RequiresApi
 import androidx.core.app.NotificationCompat
 import com.michaelpaco.webinterface.MyApplication
 import com.michaelpaco.webinterface.R
 import com.michaelpaco.webinterface.model.data.NotificationEntity
+import com.michaelpaco.webinterface.util.Const.ALERT_POSITIVE_BUTTON
+import com.michaelpaco.webinterface.util.Const.CHANNEL_DESCRIPTION
+import com.michaelpaco.webinterface.util.Const.CHANNEL_NAME
+import com.michaelpaco.webinterface.util.Const.LOCAL_NOTIFICATIONS_CHANNEL_ID
 import com.michaelpaco.webinterface.util.Date.convertToTimeInMillis
 import java.util.Date
 
 class LocalNotifications {
     private val notificationManager = MyApplication.application().getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-
-    companion object {
-        const val LOCAL_NOTIFICATIONS_CHANNEL_ID = "local_notifications_channel"
-    }
 
     init {
         createNotificationsChannel()
@@ -42,7 +40,6 @@ class LocalNotifications {
         )
     }
 
-    @RequiresApi(Build.VERSION_CODES.M)
     fun setNotification(notification: NotificationEntity, context: Context, shouldDelete: Boolean = false) {
         val intent = Intent(MyApplication.application(), NotificationScheduler::class.java)
         intent.putExtra("title", notification.title)
@@ -93,21 +90,19 @@ class LocalNotifications {
                     "\nMessage: " + message +
                     "\nAt: " + dateFormat.format(date) + " " + timeFormat.format(date)
             )
-            .setPositiveButton("Okay") { _, _ -> }
+            .setPositiveButton(ALERT_POSITIVE_BUTTON) { _, _ -> }
             .show()
     }
 
     private fun createNotificationsChannel() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val channel = NotificationChannel(
-                LOCAL_NOTIFICATIONS_CHANNEL_ID,
-                "FRVR",
-                NotificationManager.IMPORTANCE_DEFAULT
-            )
-            channel.description = "Used to show user defined notifications"
+        val channel = NotificationChannel(
+            LOCAL_NOTIFICATIONS_CHANNEL_ID,
+            CHANNEL_NAME,
+            NotificationManager.IMPORTANCE_DEFAULT
+        )
+        channel.description = CHANNEL_DESCRIPTION
 
-            val notificationManager = MyApplication.application().getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-            notificationManager.createNotificationChannel(channel)
-        }
+        val notificationManager = MyApplication.application().getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        notificationManager.createNotificationChannel(channel)
     }
 }

@@ -7,7 +7,7 @@ import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.michaelpaco.webinterface.WebInterfaceLib
 
 class MainActivity : AppCompatActivity() {
-    lateinit var webInterfaceLib: WebInterfaceLib
+    private lateinit var webInterfaceLib: WebInterfaceLib
 
     override fun onCreate(savedInstanceState: Bundle?) {
         installSplashScreen()
